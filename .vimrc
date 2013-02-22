@@ -64,5 +64,5 @@ let g:miniBufExplMinSize = 2
 map :bd :Bclose
 
 " Setup the buffers
-autocmd VimEnter * NERDTree
+autocmd VimEnter * NERDTree %
 autocmd VimEnter * MiniBufExplorer
