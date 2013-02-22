@@ -58,6 +58,7 @@ let g:miniBufExplMapWindowNavArrows = 1
 let g:miniBufExplMapCTabSwitchBufs = 1
 let g:miniBufExplModSelTarget = 1
 let g:miniBufExplorerMoreThanOne = 1
+let g:miniBufExplMinSize = 2
 
 " map bd to Bclose to keep window layout
 map :bd :Bclose
