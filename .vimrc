@@ -24,6 +24,10 @@ set copyindent
 set smarttab
 set expandtab
 
+"ignore file patterns
+set wildignore=*.swp,*.bak,*.DS_Store,*.pyc,*.class
+set nobackup
+set noswapfile
 
 " Search Section
 " Use case insensitive search except when using capital letters
