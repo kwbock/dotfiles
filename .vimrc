@@ -69,5 +69,7 @@ let g:miniBufExplMinSize = 2
 map :bd :Bclose
 
 " Setup the buffers
-autocmd VimEnter * NERDTree %
+"autocmd VimEnter * NERDTree %
 autocmd VimEnter * MiniBufExplorer
+
+command -nargs=1 E execute('silent! !mkdir -p "$(dirname "<args>")"') <Bar> e <args>
