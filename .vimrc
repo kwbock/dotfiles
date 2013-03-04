@@ -14,6 +14,7 @@ set mouse=a         " turn on mouse integration. will move cursor to mouse posit
 "" Modes
 nnoremap <F2> :set invpaste paste?<CR>
 set pastetoggle=<F2>
+map <F12> :set nohls<CR>:let @/ = ""<CR>:set hls<CR>
 
 " Indentation settings
 set tabstop=2
