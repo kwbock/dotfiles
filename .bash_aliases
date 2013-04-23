@@ -41,7 +41,7 @@ alias migrate='./manage.py migrate'
 alias shell='./manage.py shell'
 
 alias findnosvn='find . \! \( -name .svn -prune \)'
-
+alias unistart='bundle exec unicorn -p 3000 -c config/unicorn.rb -D'
 #solr
 alias solrstart='solr /usr/local/Cellar/solr/3.5.0/libexec/example/multicore/'
 
