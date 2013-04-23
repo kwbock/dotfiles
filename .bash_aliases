@@ -21,6 +21,7 @@ alias push='git push'
 alias clone='git clone'
 alias log='git log --oneline --graph --decorate --all'
 alias gdiff='git diff'
+alias __git_ps1="git branch 2>/dev/null | grep '*' | sed 's/* \(.*\)/(\1)/'"
 
 #git flow aliases
 alias flow='git flow'
