@@ -12,6 +12,7 @@ alias galyn='cd ~/Documents/dev/github/georgia_lynchings'
 alias startsquid='squid -NCd1'
 alias tunnel='ssh -l kbock -L 1337:dev11.library.emory.edu:9193 170.140.215.59 cat -'
 alias smtp='python -m smtpd -n -c DebuggingServer localhost:1025'
+alias be='bundle exec'
 #alias tmux='tmux -2'
 
 #git aliases
