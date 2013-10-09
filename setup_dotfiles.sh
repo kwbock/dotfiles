@@ -7,7 +7,7 @@ overwrite_vim_dir=Y
 if [ -d ~/.vim ]; then
   echo "Would you like to overwrite ~/.vim? [Yn]:"
   read vim_dir_input
-  
+
   # check input string
   if [ "$vim_dir_input" != "" ]; then
     $overwrite_vim_dir=$vim_dir_input
@@ -35,7 +35,7 @@ if [ "$overwrite_vimrc" == "Y" ] ||  [ "$overwrite_vimrc" == "y"]; then
   rm ~/.vimrc
   ln -s `pwd`/.vimrc ~/.vimrc
   echo "Overwrite of ~/.vimrc complete"
-fi  
+fi
 
 #################
 ## bash files ###
@@ -54,3 +54,9 @@ if [ "$overwrite_bash_aliases" == "Y" ] || [ "$overwrite_bash_aliases" == "y" ];
   ln -sf `pwd`/.bash_aliases ~/.bash_aliases
   echo "Overwrite of ~/.bash_aliases complete"
 fi
+
+ln -sf `pwd`/.slate.js ~/.slate.js
+ln -sf `pwd`/.tmux.conf ~/.tmux.conf
+ln -sf `pwd`/.tmux ~/.tmux
+ln -sf `pwd`/.tmux-powerlinerc ~/.tmux-powerlinerc
+ln -sf `pwd`/.gitignore ~/.gitignore
