@@ -9,6 +9,11 @@ var mainMonitor = '1';
 var focusChrome = slate.operation('focus', {'app' : 'Google Chrome'});
 
 // Current Monitor ops
+var fixAllApps = slate.eachApp(function(app) {
+  app.eachWindow(function(win) {
+    win.doOperation(pushFullScreen);
+  });
+});
 
 // Main Montior Ops
 var pushMainRightHalf = slate.operation('push', {
@@ -32,7 +37,7 @@ var pushMainFullScreen = slate.operation('throw', {
   'height' : 'screenSizeY'
 });
 
-var pushMain = slate.operation('throw', { 'screen' : mainMonitor })
+var pushMain = slate.operation('throw', { 'screen' : mainMonitor });
 
 // Macbook Monitor Ops
 var pushMacbookLeftHalf = slate.operation('push', {
@@ -75,33 +80,33 @@ var pushRightHalf = slate.operation('push', {
 });
 
 var macbookLayout = slate.layout('macbook', {
-  '_after_' : {'operations' : focusChrome},
+  '_after_'   : { 'operations' : focusChrome },
   'Adium' : {
-    'operations': [pushLeftHalf, pushRightHalf],
-    'ignore-fail': true,
-    'title-order': ['Contacts'],
-    'repeat-last': true // only repeat
+    'operations'  : [pushMacbookLeftHalf, pushMacbookRightHalf],
+    'ignore-fail' : true,
+    'title-order' : ['Contacts'],
+    'repeat-last' : true // only repeat
   },
   'iTerm' : {
-    'operations': [pushFullScreen]
+    'operations'  : [pushMacbookFullScreen]
   },
   'Google Chrome' : {
-    'operations': [pushFullScreen],
-    'ignore-fail': true,
-    'repeat': true
+    'operations'  : [pushMacbookFullScreen],
+    'ignore-fail' : true,
+    'repeat'      : true
   },
   'Textual' : {
-    'operations': [pushFullScreen]
+    'operations'  : [pushMacbookFullScreen]
   },
   'Mail' : {
-    'operations': [pushFullScreen]
+    'operations'  : [pushMacbookFullScreen]
   },
   'Spotify' : {
-    'operations': [pushFullScreen]
+    'operations'  : [pushMacbookFullScreen]
   },
   'Sublime Text 2' : {
-    'operations': [pushFullScreen],
-    'repeat': true
+    'operations'  : [pushMacbookFullScreen],
+    'repeat'      : true
   }
 });
 
@@ -158,10 +163,11 @@ var twoMonitorLayout = slate.layout('twoMonitor', {
   }
 });
 
+// Layout Operations
 var oneMonitor = slate.operation('layout', { 'name': macbookLayout });
 var twoMonitor = slate.operation('layout', { 'name': twoMonitorLayout });
 var universalLayout = function() {
-  slate.log('do layout op');
+  slate.log('[SLATE] universalLayout');
   if (slate.screenCount() === 1) {
     oneMonitor.run();
   } else {
@@ -169,36 +175,36 @@ var universalLayout = function() {
   }
 }
 
-// Key Bindings
-slate.bind('1:cmd', function(win) {
-  win.doOperation(pushMainFullScreen );
-});
+slate.bindAll({
+  'esc:cmd' : universalLayout,
 
-slate.bind('2:cmd', function(win) {
-  win.doOperation(pushMainLeftHalf);
-});
+  // Location Bindings
+  '1:cmd'       : pushMainFullScreen,
+  '2:cmd'       : pushMainLeftHalf,
+  '3:cmd'       : pushMainRightHalf,
+  '1:cmd,shift' : pushMacbookFullScreen,
+  '2:cmd,shift' : pushMacbookLeftHalf,
+  '3:cmd,shift' : pushMacbookRightHalf,
+  '9:cmd,shift' : function() {
+    if (macbookMonitor === 0) {
+      macbookMonitor = 1;
+      mainMonitor = 0;
+    } else {
+      macbookMonitor = 0;
+      mainMonitor = 1;
+    }
+    slate.log("SLATE" + macbookMonitor);
+  },
 
-slate.bind('3:cmd', function(win) {
-  win.doOperation(pushMainRightHalf);
-});
+  'esc:ctrl' : slate.operation('grid'),
 
-slate.bind('1:cmd,shift', function(win) {
-  win.doOperation(pushMacbookFullScreen);
+  // Relaunch and reload config
+  'r:ctrl,shift': slate.operation('relaunch')
 });
-
-slate.bind('2:cmd,shift', function(win) {
-  win.doOperation(pushMacbookLeftHalf);
-});
-
-slate.bind('3:cmd,shift', function(win) {
-  win.doOperation(pushMacbookRightHalf);
-});
-
-slate.bind('esc:cmd', universalLayout);
 
 // default the layout so it activates when I plug in my two external monitors.
 slate.on('screenConfigurationChanged', function(event) {
   universalLayout();
-})
+});
 
 slate.log('[SLATE] Config Loaded');
