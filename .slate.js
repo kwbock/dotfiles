@@ -134,6 +134,13 @@ var twoMonitorLayout = slate.layout('twoMonitor', {
         win.doOperation(pushMacbookFullScreen);
       } else {
         win.doOperation(pushMainFullScreen);
+        win.doOperation(slate.operation('move', {
+          'screen': mainMonitor,
+          'x': 'screenOriginX',
+          'y': 'screenOriginY',
+          'width': '(screenSizeX / 12) * 9',
+          'height': '(screenSizeY / 12) * 10'
+        }));
       }
     }],
     'ignore-fail': true,
@@ -179,9 +186,27 @@ slate.bindAll({
   'esc:cmd' : universalLayout,
 
   // Location Bindings
-  '1:cmd'       : pushMainFullScreen,
-  '2:cmd'       : pushMainLeftHalf,
-  '3:cmd'       : pushMainRightHalf,
+  '1:cmd'       : function() {
+    if (slate.screenCount() === 2) {
+      pushMainFullScreen.run();
+    } else {
+      pushMacbookFullScreen.run();
+    }
+  },
+  '2:cmd'       : function() {
+    if (slate.screenCount() === 2) {
+      pushMainLeftHalf.run();
+    } else {
+      pushMacbookLeftHalf.run();
+    }
+  },
+  '3:cmd'       : function() {
+    if (slate.screenCount() === 2) {
+      pushMainRightHalf.run();
+    } else {
+      pushMacbookRightHalf.run();
+    }
+  },
   '1:cmd,shift' : pushMacbookFullScreen,
   '2:cmd,shift' : pushMacbookLeftHalf,
   '3:cmd,shift' : pushMacbookRightHalf,
@@ -193,7 +218,6 @@ slate.bindAll({
       macbookMonitor = 0;
       mainMonitor = 1;
     }
-    slate.log("SLATE" + macbookMonitor);
   },
 
   'esc:ctrl' : slate.operation('grid'),
@@ -206,5 +230,3 @@ slate.bindAll({
 slate.on('screenConfigurationChanged', function(event) {
   universalLayout();
 });
-
-slate.log('[SLATE] Config Loaded');
