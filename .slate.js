@@ -1,6 +1,5 @@
 // order screens left to right so they are easier to reference
 slate.config('orderScreensLeftToRight', true);
-
 // Setup screen refs
 var macbookMonitor = '0';
 var mainMonitor = '1';
@@ -88,7 +87,7 @@ var macbookLayout = slate.layout('macbook', {
     'repeat-last' : true // only repeat
   },
   'iTerm' : {
-    'operations'  : [pushMacbookFullScreen]
+    'operations'  : [pushMacbookLeftHalf, pushMacbookFullScreen]
   },
   'Google Chrome' : {
     'operations'  : [pushMacbookFullScreen],
@@ -97,6 +96,9 @@ var macbookLayout = slate.layout('macbook', {
   },
   'Textual' : {
     'operations'  : [pushMacbookFullScreen]
+  },
+  'Textual IRC Client' : {
+    'operations' : [pushMacbookFullScreen]
   },
   'Mail' : {
     'operations'  : [pushMacbookFullScreen]
@@ -107,6 +109,9 @@ var macbookLayout = slate.layout('macbook', {
   'Sublime Text 2' : {
     'operations'  : [pushMacbookFullScreen],
     'repeat'      : true
+  },
+  'Messages' : {
+    'operations' : [pushMacbookRightHalf]
   }
 });
 
@@ -124,7 +129,7 @@ var twoMonitorLayout = slate.layout('twoMonitor', {
     'repeat': true
   },
   'Sublime Text 2' : {
-    'operations': [pushMainFullScreen],
+    'operations': [pushMainFullScreen, pushMacbookFullScreen],
     'repeat': true
   },
   'Google Chrome' : {
@@ -132,6 +137,12 @@ var twoMonitorLayout = slate.layout('twoMonitor', {
       var title = win.title();
       if (title !== undefined && title.match(/^Developer\sTools\s-\s.+$/)) {
         win.doOperation(pushMacbookFullScreen);
+        win.doOperation(slate.operation('corner', {
+          'screen': macbookMonitor,
+          'direction': 'top-right',
+          'width': '(screenSizeX / 12) * 9',
+          'height': '(screenSizeY / 12) * 10'
+        }));
       } else {
         win.doOperation(pushMainFullScreen);
         win.doOperation(slate.operation('move', {
@@ -157,6 +168,17 @@ var twoMonitorLayout = slate.layout('twoMonitor', {
     }],
     'repeat': true
   },
+  'Textual IRC Client' : {
+    'operations': [function(win) {
+      win.doOperation(slate.operation('corner', {
+        'screen': macbookMonitor,
+        'direction': 'top-right',
+        'width': '1280',
+        'height': '2*(screenSizeY/3)'
+      }));
+    }],
+    'repeat': true
+  },
   'Mail' : {
     'operations': [function(win) {
       win.doOperation(slate.operation('corner', {
@@ -167,6 +189,30 @@ var twoMonitorLayout = slate.layout('twoMonitor', {
       }));
     }],
     'repeat' : true
+  },
+  'Calendar': {
+    'operations': [function(win) {
+      win.doOperation(slate.operation('corner', {
+        'screen': mainMonitor,
+        'direction': 'top-right',
+        'width': '1440',
+        'height': '700'
+      }));
+    }],
+    'repeat' : true
+  },
+  'Spotify': {
+    'operations': [function(win) {
+      win.doOperation(slate.operation('corner', {
+        'screen': macbookMonitor,
+        'direction': 'bottom-left',
+        'width': '(screenSizeX / 12) * 9',
+        'height': '(screenSizeY / 12) * 10'
+      }))
+    }]
+  },
+  'Messages' : {
+    'operations' : [pushMainRightHalf]
   }
 });
 
@@ -223,7 +269,15 @@ slate.bindAll({
   'esc:ctrl' : slate.operation('grid'),
 
   // Relaunch and reload config
-  'r:ctrl,shift': slate.operation('relaunch')
+  'r:ctrl,shift': slate.operation('relaunch'),
+  'h:ctrl,shift': function() {
+    macbookMonitor = '1';
+    mainMonitor = '0';
+  },
+  'o:ctrl,shift': function() {
+    macbookMonitor = '0';
+    mainMonitor = '1';
+  }
 });
 
 // default the layout so it activates when I plug in my two external monitors.
