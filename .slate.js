@@ -110,6 +110,10 @@ var macbookLayout = slate.layout('macbook', {
     'operations'  : [pushMacbookFullScreen],
     'repeat'      : true
   },
+  'Atom' : {
+    'operations' : [pushMacbookFullScreen],
+    'repeat'     : true
+  },
   'Messages' : {
     'operations' : [pushMacbookRightHalf]
   }
@@ -129,6 +133,10 @@ var twoMonitorLayout = slate.layout('twoMonitor', {
     'repeat': true
   },
   'Sublime Text 2' : {
+    'operations': [pushMainFullScreen, pushMacbookFullScreen],
+    'repeat': true
+  },
+  'Atom' : {
     'operations': [pushMainFullScreen, pushMacbookFullScreen],
     'repeat': true
   },
