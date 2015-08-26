@@ -60,3 +60,4 @@ ln -sf `pwd`/.tmux.conf ~/.tmux.conf
 ln -sf `pwd`/.tmux ~/.tmux
 ln -sf `pwd`/.tmux-powerlinerc ~/.tmux-powerlinerc
 ln -sf `pwd`/.gitignore ~/.gitignore
+export DEV_BAR_ENABLED=1
