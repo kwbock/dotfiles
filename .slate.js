@@ -145,12 +145,6 @@ var twoMonitorLayout = slate.layout('twoMonitor', {
       var title = win.title();
       if (title !== undefined && title.match(/^Developer\sTools\s-\s.+$/)) {
         win.doOperation(pushMacbookFullScreen);
-        win.doOperation(slate.operation('corner', {
-          'screen': macbookMonitor,
-          'direction': 'top-right',
-          'width': '(screenSizeX / 12) * 9',
-          'height': '(screenSizeY / 12) * 10'
-        }));
       } else {
         win.doOperation(pushMainFullScreen);
         win.doOperation(slate.operation('move', {
@@ -210,14 +204,7 @@ var twoMonitorLayout = slate.layout('twoMonitor', {
     'repeat' : true
   },
   'Spotify': {
-    'operations': [function(win) {
-      win.doOperation(slate.operation('corner', {
-        'screen': macbookMonitor,
-        'direction': 'bottom-left',
-        'width': '(screenSizeX / 12) * 9',
-        'height': '(screenSizeY / 12) * 10'
-      }))
-    }]
+    'operations': [pushMacbookFullScreen]
   },
   'Messages' : {
     'operations' : [pushMainRightHalf]
