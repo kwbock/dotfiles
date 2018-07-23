@@ -4,13 +4,13 @@
 
 set nocompatible
 filetype off
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+"set rtp+=~/.vim/bundle/vundle/
+"call vundle#rc()
 
-Bundle 'ctrlpvim/ctrlp.vim'
-Bundle 'tpope/vim-rails'
-Bundle 'tpope/vim-fugitive'
-Bundle 'slim-template/vim-slim'
+"Bundle 'ctrlpvim/ctrlp.vim'
+"Bundle 'tpope/vim-rails'
+"Bundle 'tpope/vim-fugitive'
+"Bundle 'slim-template/vim-slim'
 
 """"""""
 if has('autocmd')
