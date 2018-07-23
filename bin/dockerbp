@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+function dockerbp () {
+  if [ -z "$1" ]
+    then
+      echo "You must include an image name as an argument"
+      return 1
+    else
+      docker build -t registry.qasalesloft.com/$1:latest -t registry.qasalesloft.com/$1:$(git rev-parse $(git rev-parse --abbrev-ref HEAD)) . \
+        && docker push registry.qasalesloft.com/$1:latest \
+        && docker push registry.qasalesloft.com/$1:$(git rev-parse $(git rev-parse --abbrev-ref HEAD))
+  fi
+}
