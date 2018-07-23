@@ -1,3 +1,5 @@
+slate.log('SLATE: loading ~/.slate.js')
+
 // order screens left to right so they are easier to reference
 slate.config('orderScreensLeftToRight', true);
 // Setup screen refs

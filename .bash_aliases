@@ -48,3 +48,7 @@ alias solrstart='solr /usr/local/Cellar/solr/3.5.0/libexec/example/multicore/'
 
 #xcode
 alias xmake='xcodebuild'
+
+#pipewrench
+alias pp='pbpaste | pipewrench'
+alias pw='pipewrench'
