@@ -1,0 +1,45 @@
+[user]
+  name = Kyle Bock
+  email = kyle.bock@salesloft.com
+
+[color]
+  status = auto
+  branch = auto
+  interactive = auto
+  diff = auto
+
+[alias]
+  last = log -1 HEAD
+  lg = log --graph --pretty=format:'%Cred%h%Creset -%Cgreen %an -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+  st = status
+  co = checkout
+  cob = checkout -b
+  cp = cherry-pick
+  cpn = cherry-pick -n
+  standup = log --graph --pretty=format:'%Cred%h%Creset -%Cgreen %an -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative --since="yesterday"
+  fp = fetch -p --force --all --tags
+  ff = merge --ff
+  diffc = diff --cached
+  po = push -u origin
+  done = "!f() { git fetch -p && git branch --merged origin/master | grep -v '*' | grep -v master | xargs git branch -d; }; f"
+
+[core]
+  excludesfile = /opt/boxen/config/git/gitignore
+[merge]
+  defaultToUpstream = true
+
+[push]
+	default = current
+
+[hub]
+  protocol = https
+
+[credential]
+  helper = /opt/boxen/bin/boxen-git-credential
+
+[core]
+  excludesfile = /opt/boxen/config/git/gitignore
+	editor = /usr/bin/vim
+	excludesFile = /Users/kylebock/.gitignore_global
+[color "diff"]
+  whitespace = red reverse
